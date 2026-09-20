@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حاسبة عمر الطفل</title>
+<meta name="description" content="حاسبة بسيطة لمعرفة عمر الطفل بالسنوات والأشهر والأيام.">
+
+<style>
+body{font-family:Arial;text-align:center;padding:20px;line-height:1.8}
+.box{max-width:500px;margin:30px auto;padding:25px;border-radius:15px;background:#f7f7f7}
+input,button{padding:12px;margin:8px;border-radius:8px;border:1px solid #ccc;font-size:16px}
+button{cursor:pointer}
+#result{margin-top:20px;font-size:18px;font-weight:bold}
+</style>
+</head>
+
+<body>
+
+<h1>حاسبة عمر الطفل</h1>
+
+<p>أدخل تاريخ ميلاد الطفل لمعرفة عمره الحالي.</p>
+
+<div class="box">
+<input type="date" id="birthDate">
+<br>
+<button onclick="calculateChildAge()">احسب عمر الطفل</button>
+<div id="result"></div>
+</div>
+
+<script>
+function calculateChildAge(){
+const birth=new Date(document.getElementById("birthDate").value);
+const today=new Date();
+
+if(isNaN(birth.getTime())){
+document.getElementById("result").innerHTML="اختر تاريخ الميلاد أولًا.";
+return;
+}
+
+if(birth>today){
+document.getElementById("result").innerHTML="تاريخ الميلاد غير صحيح.";
+return;
+}
+
+let years=today.getFullYear()-birth.getFullYear();
+let months=today.getMonth()-birth.getMonth();
+let days=today.getDate()-birth.getDate();
+
+if(days<0){
+months--;
+days+=new Date(today.getFullYear(),today.getMonth(),0).getDate();
+}
+
+if(months<0){
+years--;
+months+=12;
+}
+
+document.getElementById("result").innerHTML=
+"عمر الطفل: "+years+" سنة، "+months+" شهر، "+days+" يوم.";
+}
+</script>
+
+</body>
+</html>
