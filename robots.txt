@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aylan2577-jpg.github.io/age-calculator/sitemap.xmlv
