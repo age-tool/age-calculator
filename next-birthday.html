@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>موعد عيد ميلادي القادم</title>
+<meta name="description" content="احسب المدة المتبقية حتى عيد ميلادك القادم.">
+
+<style>
+body{font-family:Arial;text-align:center;padding:20px;line-height:1.8}
+.box{max-width:500px;margin:30px auto;padding:25px;border-radius:15px;background:#f7f7f7}
+input,button{padding:12px;margin:8px;border-radius:8px;border:1px solid #ccc;font-size:16px}
+button{cursor:pointer}
+#result{margin-top:20px;font-size:18px;font-weight:bold}
+</style>
+</head>
+
+<body>
+
+<h1>عيد ميلادي القادم</h1>
+
+<p>اعرف كم يتبقى على عيد ميلادك القادم.</p>
+
+<div class="box">
+<input type="date" id="birthDate">
+<br>
+<button onclick="nextBirthday()">احسب</button>
+<div id="result"></div>
+</div>
+
+<script>
+function nextBirthday(){
+const input=document.getElementById("birthDate").value;
+
+if(!input){
+document.getElementById("result").innerHTML="اختر تاريخ ميلادك أولًا.";
+return;
+}
+
+const birth=new Date(input);
+const today=new Date();
+
+let year=today.getFullYear();
+let next=new Date(year,birth.getMonth(),birth.getDate());
+
+if(next<today){
+next=new Date(year+1,birth.getMonth(),birth.getDate());
+}document.getElementById("result").innerHTML=
+"يتبقى تقريبًا "+days+" يوم على عيد ميلادك 🎂";
+}
+</script>
+
+</body>
+</html>
