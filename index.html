@@ -2,9 +2,23 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>حاسبة العمر | Age Calculator</title>
+  <title>حاسبة العمر | حساب العمر والفرق بين عمرين</title>
+
+  <meta name="description"
+        content="حاسبة العمر المجانية لحساب العمر بالسنوات والأشهر والأيام، وحساب الفرق بين عمرين أو تاريخين بسهولة.">
+
+  <meta name="keywords"
+        content="حاسبة العمر, حساب العمر, احسب عمري, الفرق بين العمرين, الفرق بين تاريخين, Age Calculator, Age Difference Calculator">
+
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:title" content="حاسبة العمر | Age Calculator">
+  <meta property="og:description"
+        content="احسب عمرك والفرق بين عمرين بسهولة ومجانًا.">
+  <meta property="og:type" content="website">
 
   <style>
     * {
@@ -16,6 +30,7 @@
       font-family: Arial, sans-serif;
       background: #f5f7fb;
       color: #1f2937;
+      transition: 0.3s;
     }
 
     header {
@@ -31,8 +46,21 @@
     }
 
     header p {
+      margin: 8px 0;
+    }
+
+    .top-buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .top-buttons button {
+      width: auto;
       margin: 0;
-      font-size: 17px;
+      background: rgba(255,255,255,0.2);
     }
 
     .container {
@@ -96,11 +124,8 @@
       color: #581c87;
     }
 
-    .english {
-      direction: ltr;
-      text-align: center;
-      margin-top: 10px;
-      color: #6b7280;
+    .info {
+      line-height: 1.9;
     }
 
     footer {
@@ -108,230 +133,335 @@
       padding: 30px;
       color: #6b7280;
     }
+
+    /* الوضع الليلي */
+
+    body.dark {
+      background: #111827;
+      color: #f9fafb;
+    }
+
+    body.dark .card {
+      background: #1f2937;
+      color: #f9fafb;
+    }
+
+    body.dark input {
+      background: #374151;
+      color: white;
+      border-color: #4b5563;
+    }
+
+    body.dark .result {
+      background: #312e81;
+      color: white;
+    }
+
+    body.dark .card h2 {
+      color: #c4b5fd;
+    }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>حاسبة العمر 🎂</h1>
-    <p>Age Calculator</p>
-    <p>احسب عمرك والفرق بين عمرين بسهولة</p>
-  </header>
+<header>
 
-  <div class="container">
+  <h1>حاسبة العمر 🎂</h1>
 
-    <!-- حاسبة العمر -->
-    <div class="card">
+  <p>Age Calculator</p>
 
-      <h2>🎂 احسب عمرك</h2>
+  <p>
+    احسب عمرك والفرق بين عمرين بسهولة ومجانًا
+  </p>
 
-      <label for="birthDate">
-        تاريخ ميلادك
-      </label>
+  <div class="top-buttons">
 
-      <input type="date" id="birthDate">
+    <button onclick="toggleLanguage()">
+      English
+    </button>
 
-      <button onclick="calculateAge()">
-        احسب عمري
-      </button>
-
-      <div class="result" id="ageResult">
-        أدخل تاريخ ميلادك
-      </div>
-
-      <div class="english">
-        Enter your birth date to calculate your age.
-      </div>
-
-    </div>
-
-
-    <!-- الفرق بين عمرين -->
-    <div class="card">
-
-      <h2>👥 الفرق بين عمرين</h2>
-
-      <label for="dateOne">
-        التاريخ الأول
-      </label>
-
-      <input type="date" id="dateOne">
-
-      <label for="dateTwo">
-        التاريخ الثاني
-      </label>
-
-      <input type="date" id="dateTwo">
-
-      <button onclick="calculateDifference()">
-        احسب الفرق
-      </button>
-
-      <div class="result" id="differenceResult">
-        أدخل التاريخين
-      </div>
-
-    </div>
+    <button onclick="toggleDarkMode()">
+      🌙 الوضع الليلي
+    </button>
 
   </div>
 
-  <footer>
-    حاسبة العمر | Age Calculator © 2026
-  </footer>
+</header>
 
 
-  <script>
-
-    function calculateAge() {
-
-      const birthInput =
-        document.getElementById("birthDate").value;
-
-      if (!birthInput) {
-
-        document.getElementById("ageResult").innerHTML =
-          "⚠️ اختر تاريخ ميلادك أولاً";
-
-        return;
-      }
-
-      const birthDate =
-        new Date(birthInput + "T00:00:00");
-
-      const today = new Date();
-
-      let years =
-        today.getFullYear() -
-        birthDate.getFullYear();
-
-      let months =
-        today.getMonth() -
-        birthDate.getMonth();
-
-      let days =
-        today.getDate() -
-        birthDate.getDate();
+<main class="container">
 
 
-      if (days < 0) {
+  <!-- حاسبة العمر -->
 
-        months--;
+  <section class="card">
 
-        const previousMonth =
-          new Date(
-            today.getFullYear(),
-            today.getMonth(),
-            0
-          );
+    <h2>🎂 حاسبة العمر</h2>
 
-        days += previousMonth.getDate();
-      }
+    <p>
+      أدخل تاريخ ميلادك لمعرفة عمرك بالسنوات والأشهر والأيام.
+    </p>
 
+    <label for="birthDate">
+      تاريخ الميلاد
+    </label>
 
-      if (months < 0) {
+    <input
+      type="date"
+      id="birthDate"
+    >
 
-        years--;
-        months += 12;
-      }
+    <button onclick="calculateAge()">
+      احسب عمري
+    </button>
 
+    <div
+      class="result"
+      id="ageResult"
+      aria-live="polite"
+    >
+      أدخل تاريخ ميلادك
+    </div>
 
-      if (birthDate > today) {
-
-        document.getElementById("ageResult").innerHTML =
-          "⚠️ تاريخ الميلاد لا يمكن أن يكون في المستقبل";
-
-        return;
-      }
-
-
-      document.getElementById("ageResult").innerHTML =
-        "عمرك هو:<br>" +
-        years + " سنة، " +
-        months + " شهر، " +
-        days + " يوم 🎉";
-    }
+  </section>
 
 
+  <!-- الفرق بين عمرين -->
 
-    function calculateDifference() {
+  <section class="card">
 
-      const first =
-        document.getElementById("dateOne").value;
+    <h2>👥 الفرق بين عمرين</h2>
 
-      const second =
-        document.getElementById("dateTwo").value;
+    <p>
+      أدخل تاريخين لمعرفة الفرق بينهما بالسنوات والأشهر والأيام.
+    </p>
 
+    <label for="dateOne">
+      التاريخ الأول
+    </label>
 
-      if (!first || !second) {
+    <input
+      type="date"
+      id="dateOne"
+    >
 
-        document.getElementById("differenceResult").innerHTML =
-          "⚠️ أدخل التاريخين أولاً";
+    <label for="dateTwo">
+      التاريخ الثاني
+    </label>
 
-        return;
-      }
+    <input
+      type="date"
+      id="dateTwo"
+    >
 
+    <button onclick="calculateDifference()">
+      احسب الفرق
+    </button>
 
-      let date1 =
-        new Date(first + "T00:00:00");
+    <div
+      class="result"
+      id="differenceResult"
+      aria-live="polite"
+    >
+      أدخل التاريخين
+    </div>
 
-      let date2 =
-        new Date(second + "T00:00:00");
-
-
-      if (date1 > date2) {
-
-        const temp = date1;
-        date1 = date2;
-        date2 = temp;
-
-      }
-
-
-      let years =
-        date2.getFullYear() -
-        date1.getFullYear();
-
-      let months =
-        date2.getMonth() -
-        date1.getMonth();
-
-      let days =
-        date2.getDate() -
-        date1.getDate();
+  </section>
 
 
-      if (days < 0) {
+  <!-- معلومات -->
 
-        months--;
+  <section class="card info">
 
-        const previousMonth =
-          new Date(
-            date2.getFullYear(),
-            date2.getMonth(),
-            0
-          );
+    <h2>ما هي حاسبة العمر؟</h2>
 
-        days += previousMonth.getDate();
-      }
+    <p>
+      حاسبة العمر هي أداة مجانية تساعدك على حساب العمر
+      بدقة بالسنوات والأشهر والأيام اعتمادًا على تاريخ الميلاد.
+    </p>
+
+    <p>
+      يمكنك أيضًا استخدام حاسبة الفرق بين عمرين لمعرفة
+      المدة بين تاريخي ميلاد أو أي تاريخين مختلفين.
+    </p>
+
+    <h2>Age Calculator</h2>
+
+    <p>
+      Our free age calculator helps you calculate your exact age
+      in years, months and days.
+    </p>
+
+  </section>
+
+</main>
 
 
-      if (months < 0) {
+<footer>
 
-        years--;
-        months += 12;
-      }
+  حاسبة العمر | Age Calculator © 2026
+
+</footer>
 
 
-      document.getElementById("differenceResult").innerHTML =
-        "الفرق هو:<br>" +
-        years + " سنة، " +
-        months + " شهر، " +
-        days + " يوم 👥";
+<script>
 
-    }
+function calculateAge() {
 
-  </script>
+  const birthInput =
+    document.getElementById("birthDate").value;
+
+  if (!birthInput) {
+
+    document.getElementById("ageResult").innerHTML =
+      "⚠️ اختر تاريخ ميلادك أولاً";
+
+    return;
+  }
+
+  const birthDate =
+    new Date(birthInput + "T00:00:00");
+
+  const today = new Date();
+
+  if (birthDate > today) {
+
+    document.getElementById("ageResult").innerHTML =
+      "⚠️ تاريخ الميلاد لا يمكن أن يكون في المستقبل";
+
+    return;
+  }
+
+  let years =
+    today.getFullYear() -
+    birthDate.getFullYear();
+
+  let months =
+    today.getMonth() -
+    birthDate.getMonth();
+
+  let days =
+    today.getDate() -
+    birthDate.getDate();
+
+  if (days < 0) {
+
+    months--;
+
+    const previousMonth =
+      new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        0
+      );
+
+    days += previousMonth.getDate();
+  }
+
+  if (months < 0) {
+
+    years--;
+
+    months += 12;
+  }
+
+  document.getElementById("ageResult").innerHTML =
+    "عمرك هو:<br>" +
+    years + " سنة، " +
+    months + " شهر، " +
+    days + " يوم 🎉";
+}
+
+
+function calculateDifference() {
+
+  const first =
+    document.getElementById("dateOne").value;
+
+  const second =
+    document.getElementById("dateTwo").value;
+
+  if (!first || !second) {
+
+    document.getElementById("differenceResult").innerHTML =
+      "⚠️ أدخل التاريخين أولاً";
+
+    return;
+  }
+
+  let date1 =
+    new Date(first + "T00:00:00");
+
+  let date2 =
+    new Date(second + "T00:00:00");
+
+  if (date1 > date2) {
+
+    const temp = date1;
+
+    date1 = date2;
+
+    date2 = temp;
+  }
+
+  let years =
+    date2.getFullYear() -
+    date1.getFullYear();
+
+  let months =
+    date2.getMonth() -
+    date1.getMonth();
+
+  let days =
+    date2.getDate() -
+    date1.getDate();
+
+  if (days < 0) {
+
+    months--;
+
+    const previousMonth =
+      new Date(
+        date2.getFullYear(),
+        date2.getMonth(),
+        0
+      );
+
+    days += previousMonth.getDate();
+  }
+
+  if (months < 0) {
+
+    years--;
+
+    months += 12;
+  }
+
+  document.getElementById("differenceResult").innerHTML =
+    "الفرق هو:<br>" +
+    years + " سنة، " +
+    months + " شهر، " +
+    days + " يوم 👥";
+}
+
+
+function toggleDarkMode() {
+
+  document.body.classList.toggle("dark");
+
+}
+
+
+function toggleLanguage() {
+
+  alert(
+    "English version will be added soon."
+  );
+
+}
+
+</script>
 
 </body>
 </html>
